@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_assignment_02/Database/TodoProvider.dart';
 import 'package:flutter_assignment_02/Model/Todo.dart';
 import 'package:flutter_assignment_02/NewTodo.dart';
-import 'package:sqflite/sqflite.dart';
 
 class TaskPage extends StatefulWidget {
 
@@ -42,46 +41,45 @@ class _TaskPageState extends State<TaskPage> {
   }
 
   Widget setUpLayoutChild() {
-
-      return new Container(
-        padding: EdgeInsets.all(10.0),
-        child: FutureBuilder<List<Todo>>(
-          future: updateListView(),
-          builder: (context, snapshot){
-            if(snapshot.data != null){
-              if(snapshot.data.length != 0){
-                return ListView.builder(
-                  itemCount: snapshot.data.length,
-                  itemBuilder: (context,index) {
-                    return Card(
-                      color: Colors.white,
-                      elevation: 2.0,
-                      child: CheckboxListTile(
-                          title: Text(snapshot.data[index].title),
-                          value: inputs[index],
-                          onChanged: (bool value) {
-                            ItemChange(value, index);
-                            Todo todo = new Todo();
-                            todo.id = snapshot.data[index].id;
-                            todo.title = snapshot.data[index].title;
-                            todo.done = inputs[index];
-                            todoProvider.updateTodo(todo);
-                            ItemChange(false, index);
-                            getTodoFromDB();
-                          },
-                        ),
-                    );
-                  },
-                );
-              }else{
-                return Center(child: Text('No data found..', style: TextStyle(fontWeight: FontWeight.bold,fontSize: 16)));
-              }
+    return new Container(
+      padding: EdgeInsets.all(10.0),
+      child: FutureBuilder<List<Todo>>(
+        future: updateListView(),
+        builder: (context, snapshot){
+          if(snapshot.data != null){
+            if(snapshot.data.length != 0){
+              return ListView.builder(
+                itemCount: snapshot.data.length,
+                itemBuilder: (context,index) {
+                  return Card(
+                    color: Colors.white,
+                    elevation: 2.0,
+                    child: CheckboxListTile(
+                      title: Text(snapshot.data[index].title,style: TextStyle(fontWeight: FontWeight.bold)),
+                      value: inputs[index],
+                      onChanged: (bool value) {
+                        ItemChange(value, index);
+                        Todo todo = new Todo();
+                        todo.id = snapshot.data[index].id;
+                        todo.title = snapshot.data[index].title;
+                        todo.done = inputs[index];
+                        todoProvider.updateTodo(todo);
+                        ItemChange(false, index);
+                        getTodoFromDB();
+                      },
+                    ),
+                  );
+                },
+              );
             }else{
-              return Center(child: Text(''));
+              return Center(child: Text('No data found..', style: TextStyle(fontWeight: FontWeight.bold,fontSize: 16)));
             }
-          },
-        ),
-      );
+          }else{
+            return Center(child: Text(''));
+          }
+        },
+      ),
+    );
   }
   
   @override

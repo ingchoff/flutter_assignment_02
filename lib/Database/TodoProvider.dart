@@ -6,7 +6,7 @@ import 'package:path_provider/path_provider.dart';
 
 class TodoProvider{
   static Database db_instance;
-  final String TABLE_NAME = 'Todo';
+  final String TABLE_NAME = 'todo';
 
   Future<Database> get db async{
     if(db_instance == null){
@@ -25,7 +25,7 @@ class TodoProvider{
   void onCreate(Database db, int version) async {
     //create table
     await db.execute(
-      'CREATE TABLE $TABLE_NAME(id INTEGER PRIMARY KEY AUTOINCREMENT, title TEXT NOT NULL, done INTERGER NOT NULL)'
+      'CREATE TABLE $TABLE_NAME(_id INTEGER PRIMARY KEY AUTOINCREMENT, title TEXT NOT NULL, done INTERGER NOT NULL)'
       );
   }
 
@@ -37,7 +37,7 @@ class TodoProvider{
     List<Todo> todos = new List();
     for(int i = 0;i<list.length;i++){
       Todo todo = new Todo();
-      todo.id = list[i]['id'];
+      todo.id = list[i]['_id'];
       todo.title = list[i]['title'];
       todo.done = list[i]['done']==1;
       todos.add(todo);
@@ -56,7 +56,7 @@ class TodoProvider{
 
   void updateTodo(Todo todo) async {
     var dbConnection = await db;
-    String query = 'UPDATE $TABLE_NAME SET title=\'${todo.title}\',done=\'${todo.done==true?1:0}\' WHERE id=${todo.id}';
+    String query = 'UPDATE $TABLE_NAME SET title=\'${todo.title}\',done=\'${todo.done==true?1:0}\' WHERE _id=${todo.id}';
     print(query);
     await dbConnection.transaction((transaction) async {
       return await transaction.rawUpdate(query);

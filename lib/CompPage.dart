@@ -67,7 +67,7 @@ class _CompPageState extends State<CompPage> {
                       color: Colors.white,
                       elevation: 2.0,
                       child: CheckboxListTile(
-                        title: Text(snapshot.data[index].title),
+                        title: Text(snapshot.data[index].title,style: TextStyle(fontWeight: FontWeight.bold)),
                         value: inputs[index],
                         onChanged: (bool value) {
                           ItemChange(value, index);

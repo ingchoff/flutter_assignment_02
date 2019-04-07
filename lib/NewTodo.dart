@@ -46,7 +46,7 @@ class _NewTodoState extends State<NewTodo> {
                 height: 40,
                 child: RaisedButton(
                   onPressed: saveTask,
-                  child: Text('Save'),
+                  child: Text('Save', style: TextStyle(fontSize: 16)),
                 ),
               ),
             ) 
