@@ -86,7 +86,7 @@ class _TaskPageState extends State<TaskPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('To Do'),
+        title: Text('Todo'),
         actions: <Widget>[
           new IconButton(
             onPressed: (){

@@ -4,6 +4,4 @@ class Todo{
   bool done;
 
   Todo();
-
-
 }

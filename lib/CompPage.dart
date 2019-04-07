@@ -42,7 +42,7 @@ class _CompPageState extends State<CompPage> {
     }
     return Scaffold(
       appBar: AppBar(
-        title: Text('To Do'),
+        title: Text('Todo'),
         actions: <Widget>[
           new IconButton(
             onPressed: (){
